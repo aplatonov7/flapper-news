@@ -30,7 +30,7 @@ app.factory('posts', [
     };
 
     o.getPostById = function (id) {
-      return $http.get('/posts/' + id).then(function(res){
+      return $http.get('/posts/' + id).then(function (res) {
         return res.data;
       });
     };
@@ -50,11 +50,13 @@ app.factory('posts', [
       }
     };
 
-    o.addComment = function(post, comment) {
+    o.addComment = function (post, comment) {
+      comment.author = comment.author ? comment.author : 'John Doe';
+
       return $http.post(
-        '/posts/' + post._id + '/comments', 
+        '/posts/' + post._id + '/comments',
         comment
-      ).success(function(comment) {
+      ).success(function (comment) {
         post.comments.push(comment);
       });
     };
@@ -73,17 +75,17 @@ app.factory('posts', [
         });
     };
 
-    o.upvoteComment = function (element) {
-      return $http.put('/posts/' + comment.post + '/comments' + comment._id + '/downvote')
+    o.upvoteComment = function (comment) {
+      return $http.put('/posts/' + comment.post + '/comments/' + comment._id + '/upvote')
         .success(function (data) {
-          post.rating -= 1;
+          comment.rating += 1;
         });
     }
 
-    o.downvoteComment = function (element) {
-      return $http.put('/posts/' + post._id + '/downvote')
+    o.downvoteComment = function (comment) {
+      return $http.put('/posts/' + comment.post + '/comments/' + comment._id + '/downvote')
         .success(function (data) {
-          post.rating -= 1;
+          comment.rating -= 1;
         });
     }
 
