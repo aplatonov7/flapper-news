@@ -24,8 +24,15 @@ app.factory('posts', [
     o.Comment = Comment;
     
     o.getAll = function() {
-      return $http.get('/posts').success(function(data){
+      return $http.get('/posts').success(function(data) {
         angular.copy(data, o.container);
+      });
+    };
+    
+    o.getPostById = function(id, post) {
+      o.currentPost = {};
+      return $http.get('/posts/' + id).success(function(data) {
+        angular.copy(data, post);
       });
     };
     

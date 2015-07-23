@@ -55,7 +55,7 @@
           </div>
 
           <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" href="#posts/{{$index}}">
+            <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" href="#posts/{{post._id}}">
               Read more
             </a>
           </div>
@@ -65,6 +65,10 @@
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="prevPage()" ng-disabled="currentPage <= 0">
             Previous
           </button>
+          
+          <div class="page-counter">
+            {{currentPage + 1}} / {{totalPages}}
+          </div>
 
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="nextPage()" ng-disabled="paginationStatusNext()">
             Next

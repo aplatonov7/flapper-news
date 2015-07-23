@@ -8,6 +8,12 @@ app.controller('MainCtrl', [
     $scope.pageSize = 3;
     $scope.currentPage = 0;
     
+    $scope.$watch(function() {
+      return Math.ceil($scope.posts.container.length / $scope.pageSize)
+    }, function() {
+      $scope.totalPages = Math.ceil($scope.posts.container.length / $scope.pageSize);
+    });
+    
     $scope.prevPage = function() {
       $scope.currentPage--;
     };
@@ -46,8 +52,10 @@ app.controller('PostsCtrl', [
     angular.element(document).ready(function() {
       componentHandler.upgradeAllRegistered();
     });
-
-    $scope.post = posts.container[$stateParams.id];
+    
+    var post = {};
+    posts.getPostById($stateParams.id, post);
+    $scope.post = post;
     
     $scope.submitForm = function() {
       posts.addComment(
