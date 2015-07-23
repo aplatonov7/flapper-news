@@ -8,11 +8,6 @@
   to {transform: translateX(0px); opacity: 1;}
 }
 
-@keyframes appear-top {
-  from {transform: translateX(-200px); opacity: 0;}
-  to {transform: translateX(0px); opacity: 1;}
-}
-
 @keyframes appear-fade {
   from {opacity: 0}
   to {opacity: 1}

@@ -45,6 +45,7 @@
           <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="modal = true">
             <i class="material-icons">person</i>
           </button>
+          {{currentUser}}
         </div>
       </div>
     </header>
@@ -208,7 +209,7 @@
     </div>
   </script>
 
-  <div class="modal-window" ng-show="modal">
+  <div class="modal-window" ng-controller="AuthCtrl" ng-show="modal">
     <div class="mdl-card mdl-shadow--16dp modal-form modal-form--register" ng-hide="!mode">
       <h3 class="mdl-color-text--accent">Login</h3>
       
@@ -222,16 +223,16 @@
 
       <form>
         <div class="mdl-textfield mdl-js-textfield">
-          <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
-          <label class="mdl-textfield__label" for="postTitle">Username</label>
+          <input id="userName" class="mdl-textfield__input" type="text" ng-model="user.username" />
+          <label class="mdl-textfield__label" for="userName">Username</label>
         </div>
         
         <div class="mdl-textfield mdl-js-textfield">
-          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
-          <label class="mdl-textfield__label" for="postImage">Password</label>
+          <input id="userPassword" class="mdl-textfield__input" type="text" ng-model="user.password" />
+          <label class="mdl-textfield__label" for="userPassword">Password</label>
         </div>
         
-        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right" ng-click="logIn()">
           Login
         </button>
       </form>
@@ -250,22 +251,17 @@
 
       <form>
         <div class="mdl-textfield mdl-js-textfield">
-          <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
-          <label class="mdl-textfield__label" for="postTitle">Username</label>
+          <input id="userName" class="mdl-textfield__input" type="text" ng-model="user.username" />
+          <label class="mdl-textfield__label" for="postuserNameTitle">Username</label>
         </div>
 
         <div class="mdl-textfield mdl-js-textfield">
-          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
-          <label class="mdl-textfield__label" for="postImage">Password</label>
-        </div>
-        
-        <div class="mdl-textfield mdl-js-textfield">
-          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
-          <label class="mdl-textfield__label" for="postImage">Repeat password</label>
+          <input id="userPassword" class="mdl-textfield__input" type="text" ng-model="user.password" />
+          <label class="mdl-textfield__label" for="userPassword">Password</label>
         </div>
 
-        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
-          Sign
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right" ng-click="register()">
+          Sign Up
         </button>
       </form>
     </div>

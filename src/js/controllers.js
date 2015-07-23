@@ -1,9 +1,11 @@
 app.controller('MainCtrl', [
   '$scope',
   'posts',
-  function ($scope, posts) {
+  'auth',
+  function ($scope, posts, auth) {
     $scope.userPost = {};
     $scope.posts = posts;
+    $scope.currentUser = auth.currentUser();
     
     $scope.mode = true;
     $scope.modal = false;
@@ -73,7 +75,7 @@ app.controller('AuthCtrl', [
   function ($scope, $state, auth) {
     $scope.user = {};
 
-    $scope.register = function () {
+    $scope.register = function () {      
       auth.register($scope.user).error(function (error) {
         $scope.error = error;
       }).then(function () {

@@ -2,7 +2,8 @@
 app.factory('posts', [
   'imgurLinkGenerator',
   '$http',
-  function (imgurLinkGenerator, $http) {
+  'auth',
+  function (imgurLinkGenerator, $http, auth) {
     var o = {
       container: []
     };
@@ -37,54 +38,84 @@ app.factory('posts', [
     };
 
     o.addPost = function (post) {
+      post.author = auth.currentUser();
+
       if (!(post.image + '').match(/^(http:\/\/){0,1}i.imgur.com\/[A-Za-z0-9]{5,7}\.(jpg|png|jpeg|gif)$/i)) {
         imgurLinkGenerator.getImgurLink().then(function (src) {
           post.image = src;
-          $http.post('/posts', post).success(function (data) {
+          $http.post('/posts', post, {
+            headers: {
+              Authorization: 'Bearer ' + auth.getToken()
+            }
+          }).success(function (data) {
             o.container.push(data);
           });
         });
       } else {
-        $http.post('/posts', post).success(function (data) {
+        $http.post('/posts', post, {
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        }).success(function (data) {
           o.container.push(data);
         });
       }
     };
 
     o.addComment = function (post, comment) {
-      comment.author = comment.author ? comment.author : 'John Doe';
+      comment.author = auth.currentUser();
 
       return $http.post(
         '/posts/' + post._id + '/comments',
-        comment
+        comment, {
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        }
       ).success(function (comment) {
         post.comments.push(comment);
       });
     };
 
     o.upvotePost = function (post) {
-      return $http.put('/posts/' + post._id + '/upvote')
+      return $http.put('/posts/' + post._id + '/upvote', null, {
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        }
+      })
         .success(function (data) {
           post.rating += 1;
         });
     };
 
     o.downvotePost = function (post) {
-      return $http.put('/posts/' + post._id + '/downvote')
+      return $http.put('/posts/' + post._id + '/downvote', null, {
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        }
+      })
         .success(function (data) {
           post.rating -= 1;
         });
     };
 
     o.upvoteComment = function (post, comment) {
-      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        }
+      })
         .success(function (data) {
           comment.rating += 1;
         });
     }
 
     o.downvoteComment = function (post, comment) {
-      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote')
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        }
+      })
         .success(function (data) {
           comment.rating -= 1;
         });
@@ -94,55 +125,58 @@ app.factory('posts', [
 }]);
 
 /* Authentification service */
-app.factory('auth', ['$http', '$window', function($http, $window){
-  var auth = {};
-  
-  auth.saveToken = function (token){
-    $window.localStorage['flapper-news-token'] = token;
-  };
+app.factory('auth', [
+  '$http',
+  '$window',
+  function ($http, $window) {
+    var auth = {};
 
-  auth.getToken = function (){
-    return $window.localStorage['flapper-news-token'];
-  };
-  
-  auth.isLoggedIn = function(){
-    var token = auth.getToken();
+    auth.saveToken = function (token) {
+      $window.localStorage['flapper-news-token'] = token;
+    };
 
-    if(token){
-      var payload = JSON.parse($window.atob(token.split('.')[1]));
+    auth.getToken = function () {
+      return $window.localStorage['flapper-news-token'];
+    };
 
-      return payload.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  };
-  
-  auth.currentUser = function(){
-    if(auth.isLoggedIn()){
+    auth.isLoggedIn = function () {
       var token = auth.getToken();
-      var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-      return payload.username;
-    }
-  };
-  
-  auth.register = function(user){
-    return $http.post('/register', user).success(function(data){
-      auth.saveToken(data.token);
-    });
-  };
-  
-  auth.logIn = function(user){
-    return $http.post('/login', user).success(function(data){
-      auth.saveToken(data.token);
-    });
-  };
-  
-  auth.logOut = function(){
-    $window.localStorage.removeItem('flapper-news-token');
-  };
+      if (token) {
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-  return auth;
+        return payload.exp > Date.now() / 1000;
+      } else {
+        return false;
+      }
+    };
+
+    auth.currentUser = function () {
+      if (auth.isLoggedIn()) {
+        var token = auth.getToken();
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+        return payload.username;
+      }
+    };
+
+    auth.register = function (user) {
+      return $http.post('/register', user).success(function (data) {
+        auth.saveToken(data.token);
+      });
+    };
+
+    auth.logIn = function (user) {
+      return $http.post('/login', user).success(function (data) {
+        auth.saveToken(data.token);
+      });
+    };
+
+    auth.logOut = function () {
+      $window.localStorage.removeItem('flapper-news-token');
+    };
+
+    return auth;
 }]);
 
 /* Service for imgur link generation */
