@@ -23,8 +23,38 @@
 <body ng-app="flapperNews" ng-controller="MainCtrl">
   <div class="background"></div>
 
-  <div class="container">
-    <ui-view></ui-view>
+  <div class="layout-transparent mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Flapper News</span>
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+            <i class="material-icons">search</i>
+          </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Flapper News</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+      </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+      <div class="container">
+        <ui-view></ui-view>
+      </div>
+    </main>
   </div>
 
   <script type="text/ng-template" id="/home.html">
@@ -62,15 +92,15 @@
         </div>
 
         <div class="mdl-cell mdl-cell--12-col pagination">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="prevPage()" ng-disabled="currentPage <= 0">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="prevPage()" ng-disabled="currentPage <= 0">
             Previous
           </button>
-          
+
           <div class="page-counter">
             {{currentPage + 1}} / {{totalPages}}
           </div>
 
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="nextPage()" ng-disabled="paginationStatusNext()">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="nextPage()" ng-disabled="paginationStatusNext()">
             Next
           </button>
         </div>
@@ -108,8 +138,8 @@
     <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent mdl-js-ripple-effect return-btn" href="#home">
       <i class="material-icons">arrow_back</i>
     </a>
-
-    <div class="mdl-gird">
+   
+    <div class="mdl-gird">     
       <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col post-card post-card-full">
         <div class="mdl-card__title" ng-style="{'background-image': 'url(' + post.image + ')'}">
           <h3 class="mdl-card__title-text">{{post.title}}</h3>
@@ -167,7 +197,6 @@
       </div>
     </div>
   </script>
-
 </body>
 
 </html>
