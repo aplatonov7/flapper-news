@@ -5,6 +5,21 @@ app.controller('MainCtrl', [
     $scope.userPost = {};
     $scope.posts = posts;
     
+    $scope.pageSize = 3;
+    $scope.currentPage = 0;
+    
+    $scope.prevPage = function() {
+      $scope.currentPage--;
+    };
+    
+    $scope.nextPage = function() {
+      $scope.currentPage++;
+    };
+    
+    $scope.paginationStatusNext = function() {
+      return $scope.currentPage > (Math.ceil($scope.posts.container.length / $scope.pageSize)) - 2;
+    };
+    
     angular.element(document).ready(function() {
       componentHandler.upgradeAllRegistered();
     });
