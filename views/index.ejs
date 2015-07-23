@@ -185,10 +185,10 @@
 
           <div class="comment-card__header-menu">
             {{comment.rating}}
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvoteComment(comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvoteComment(post, comment)">
               <i class="material-icons">keyboard_arrow_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvoteComment(comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvoteComment(post, comment)">
               <i class="material-icons">keyboard_arrow_down</i>
             </button>
           </div>

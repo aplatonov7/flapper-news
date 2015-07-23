@@ -75,15 +75,15 @@ app.factory('posts', [
         });
     };
 
-    o.upvoteComment = function (comment) {
-      return $http.put('/posts/' + comment.post + '/comments/' + comment._id + '/upvote')
+    o.upvoteComment = function (post, comment) {
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
         .success(function (data) {
           comment.rating += 1;
         });
     }
 
-    o.downvoteComment = function (comment) {
-      return $http.put('/posts/' + comment.post + '/comments/' + comment._id + '/downvote')
+    o.downvoteComment = function (post, comment) {
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote')
         .success(function (data) {
           comment.rating -= 1;
         });
