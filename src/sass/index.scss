@@ -104,6 +104,10 @@ textarea {
     }
   }
   
+  .mdl-card__actions {
+    display: flex;
+  }
+  
   &.post-card-full {
     animation: appear-unfold 0.5s 1;
     animation-timing-function: cubic-bezier(.55,0,.1,1);
@@ -123,13 +127,17 @@ textarea {
 .add-comment-form {
   min-height: 0;
   
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  
   background-color: #eee;
-  padding: 15px 30px;
+  padding: 20px 16px 20px 35px;
   
   color: #222;
   
   .mdl-textfield {
-    width: 100%;
+    width: 80%;
   }
 }
 
@@ -155,11 +163,6 @@ textarea {
   animation: appear-unfold 0.5s 1;
   animation-timing-function: cubic-bezier(.55,0,.1,1);
   transform-origin: top left;
-}
-
-@keyframes appear-unfold {
-  from {transform: scale(0)}
-  to {transform: scale(1)}
 } 
 
 .return-btn {
@@ -171,25 +174,46 @@ textarea {
   animation-timing-function: cubic-bezier(.55,0,.1,1);
 }
 
-@keyframes appear-left {
-  from {transform: translateX(-200px); opacity: 0;}
-  to {transform: translateX(0px); opacity: 1;}
-}
-
-.add-post-form {
-  padding: 15px 30px;
-  
+.add-post-form {  
   color: #222;
   
   .mdl-textfield {
     width: 100%;
   }
+  
+  .mdl-card__supporting-text {
+    padding: 0 30px;
+    width: 100%;
+  }
+  
+  .mdl-card__actions {
+    display: flex;
+  }
+  
+  animation: appear-fade 0.3s 1;
+  animation-timing-function: cubic-bezier(.55,0,.1,1);
+}
+
+@keyframes appear-unfold {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+@keyframes appear-left {
+  from {transform: translateX(-200px); opacity: 0;}
+  to {transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes appear-top {
+  from {transform: translateX(-200px); opacity: 0;}
+  to {transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes appear-fade {
+  from {opacity: 0}
+  to {opacity: 1}
 }
 
 .pull-right {
-  float: right;
-}
-
-.pull-left {
-  float: left;
+  margin-left: auto;
 }

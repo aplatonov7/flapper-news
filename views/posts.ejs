@@ -1,0 +1,77 @@
+<div class="mdl-grid">
+
+  <div class="mdl-cell mdl-cell--8-col mdl-cell--top">
+    <div class="mdl-card mdl-shadow--4dp post-card post-card-snippet" ng-repeat="post in posts.container | orderBy: '-rating' | startFrom: currentPage*pageSize | limitTo: pageSize">
+      <div class="mdl-card__title" ng-style="{'background-image': 'url(' + post.image + ')'}">
+        <h3 class="mdl-card__title-text">
+          {{post.title}}
+        </h3>
+      </div>
+
+      <div class="mdl-card__supporting-text">
+        <div class="post-menu">
+          {{post.rating}}
+          <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
+            <i class="material-icons">keyboard_arrow_up</i>
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
+            <i class="material-icons">keyboard_arrow_down</i>
+          </button>
+        </div>
+
+        <p>
+          {{post.content}}
+        </p>
+      </div>
+
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" href="#posts/{{post._id}}">
+          Read more
+        </a>
+      </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col pagination">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="prevPage()" ng-disabled="currentPage <= 0">
+        Previous
+      </button>
+
+      <div class="page-counter">
+        {{currentPage + 1}} / {{totalPages}}
+      </div>
+
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="nextPage()" ng-disabled="paginationStatusNext()">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <form class="mdl-cell mdl-card add-post-form mdl-shadow--4dp mdl-cell--4-col mdl-cell--top" ng-submit="submitForm()">
+    <div class="mdl-card__title mdl-card--border">
+      <h3 class="mdl-card__title-text mdl-color-text--primary">Add new post</h3>
+    </div>
+
+    <div class="mdl-card__supporting-text">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
+        <label class="mdl-textfield__label" for="postTitle">Post title</label>
+      </div>
+      <br />
+      <div class="mdl-textfield mdl-js-textfield">
+        <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
+        <label class="mdl-textfield__label" for="postImage">Post image (imgur link)</label>
+      </div>
+      <br />
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea id="postContent" class="mdl-textfield__input" type="text" rows="5" ng-model="userPost.content"></textarea>
+        <label class="mdl-textfield__label" for="postContent">Post content</label>
+      </div>
+    </div>
+
+    <div class="mdl-card__actions">
+      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
+        Add Post
+      </button>
+    </div>
+  </form>
+</div>

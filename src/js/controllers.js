@@ -46,22 +46,19 @@ app.controller('MainCtrl', [
 
 app.controller('PostsCtrl', [
   '$scope',
-  '$stateParams',
   'posts',
-  function($scope, $stateParams, posts) {    
+  'post',
+  function($scope, posts, post) {    
     angular.element(document).ready(function() {
       componentHandler.upgradeAllRegistered();
     });
     
-    var post = {};
-    posts.getPostById($stateParams.id, post);
     $scope.post = post;
     
     $scope.submitForm = function() {
       posts.addComment(
         $scope.post,
-        $scope.userComment.author, 
-        $scope.userComment.body
+        $scope.userComment
       );
     };
 }]);

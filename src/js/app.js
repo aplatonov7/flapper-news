@@ -20,7 +20,12 @@ app.config([
       .state('posts', {
         url: '/posts/{id}',
         templateUrl: '/posts.html',
-        controller: 'PostsCtrl'
+        controller: 'PostsCtrl',
+        resolve: {
+          post: ['$stateParams', 'posts', function($stateParams, posts) {
+            return posts.getPostById($stateParams.id);
+          }]
+        }
       });
 
     $urlRouterProvider.otherwise('home');

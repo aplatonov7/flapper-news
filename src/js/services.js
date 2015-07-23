@@ -5,13 +5,13 @@ app.factory('posts', [
     var o = {
       container: []
     };
-    
+
     function Comment(author, body, rating) {
       this.author = author ? author : 'John Doe';
       this.body = body ? body : 'No comment';
       this.rating = rating ? rating : 0;
     }
-    
+
     function Post(title, link, content, comments, rating) {
       this.title = title ? title : '';
       this.link = link ? link : '';
@@ -19,49 +19,72 @@ app.factory('posts', [
       this.comments = comments ? comments : [];
       this.rating = rating ? rating : 0;
     }
-    
+
     o.Post = Post;
     o.Comment = Comment;
-    
-    o.getAll = function() {
-      return $http.get('/posts').success(function(data) {
+
+    o.getAll = function () {
+      return $http.get('/posts').success(function (data) {
         angular.copy(data, o.container);
       });
     };
-    
-    o.getPostById = function(id, post) {
-      o.currentPost = {};
-      return $http.get('/posts/' + id).success(function(data) {
-        angular.copy(data, post);
+
+    o.getPostById = function (id) {
+      return $http.get('/posts/' + id).then(function(res){
+        return res.data;
       });
     };
-    
-    o.addPost = function(post) {
+
+    o.addPost = function (post) {
       if (!(post.image + '').match(/^(http:\/\/){0,1}i.imgur.com\/[A-Za-z0-9]{5,7}\.(jpg|png|jpeg|gif)$/i)) {
         imgurLinkGenerator.getImgurLink().then(function (src) {
           post.image = src;
-          $http.post('/posts', post).success(function(data){
+          $http.post('/posts', post).success(function (data) {
             o.container.push(data);
           });
         });
       } else {
-        $http.post('/posts', post).success(function(data){
+        $http.post('/posts', post).success(function (data) {
           o.container.push(data);
         });
       }
     };
-    
-    o.addComment = function(post, author, body) {
-      var comment = new Comment(author, body);
-      post.comments.push(comment);
-    }
-    
-    o.upvote = function(element) {
-      element.rating += 1;
+
+    o.addComment = function(post, comment) {
+      return $http.post(
+        '/posts/' + post._id + '/comments', 
+        comment
+      ).success(function(comment) {
+        post.comments.push(comment);
+      });
+    };
+
+    o.upvotePost = function (post) {
+      return $http.put('/posts/' + post._id + '/upvote')
+        .success(function (data) {
+          post.rating += 1;
+        });
+    };
+
+    o.downvotePost = function (post) {
+      return $http.put('/posts/' + post._id + '/downvote')
+        .success(function (data) {
+          post.rating -= 1;
+        });
+    };
+
+    o.upvoteComment = function (element) {
+      return $http.put('/posts/' + comment.post + '/comments' + comment._id + '/downvote')
+        .success(function (data) {
+          post.rating -= 1;
+        });
     }
 
-    o.downvote = function(element) {
-      element.rating -= 1;
+    o.downvoteComment = function (element) {
+      return $http.put('/posts/' + post._id + '/downvote')
+        .success(function (data) {
+          post.rating -= 1;
+        });
     }
 
     return o;

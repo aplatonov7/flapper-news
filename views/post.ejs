@@ -1,0 +1,59 @@
+<a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent mdl-js-ripple-effect return-btn" href="#home">
+  <i class="material-icons">arrow_back</i>
+</a>
+
+<div class="mdl-gird">
+  <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col post-card post-card-full">
+    <div class="mdl-card__title" ng-style="{'background-image': 'url(' + post.image + ')'}">
+      <h3 class="mdl-card__title-text">{{post.title}}</h3>
+    </div>
+
+    <div class="mdl-card__supporting-text post-content">
+      <div class="post-menu">
+        {{post.rating}}
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </button>
+      </div>
+
+      <p>
+        {{post.content}}
+      </p>
+    </div>
+    <form class="mdl-card__actions mdl-card--border add-comment-form">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <textarea id="commentBody" class="mdl-textfield__input" type="text" rows="3" ng-model="userComment.body"></textarea>
+        <label class="mdl-textfield__label" for="commentBody">Join the discussion</label>
+      </div>
+
+      <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">
+        Add Comment
+      </button>
+    </form>
+  </div>
+
+  <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col comment-card" ng-repeat="comment in post.comments | orderBy:'-rating'">
+    <div class="comment-card__header">
+      <div class="comment-card__header-author">
+        by <strong>{{comment.author}}</strong>
+      </div>
+
+      <div class="comment-card__header-menu">
+        {{comment.rating}}
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvoteComment(comment)">
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvoteComment(comment)">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </button>
+      </div>
+    </div>
+
+    <p>
+      {{comment.body}}
+    </p>
+  </div>
+</div>

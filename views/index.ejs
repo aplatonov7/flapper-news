@@ -27,14 +27,16 @@
     <header class="mdl-layout__header mdl-layout__header--transparent">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Flapper News</span>
+        
         <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                  mdl-textfield--floating-label mdl-textfield--align-right">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+        
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
             <i class="material-icons">search</i>
           </label>
           <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
+            <input class="mdl-textfield__input" type="text" id="sample6" />
+            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
           </div>
         </div>
       </div>
@@ -71,10 +73,10 @@
           <div class="mdl-card__supporting-text">
             <div class="post-menu">
               {{post.rating}}
-              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvote(post)">
+              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
                 <i class="material-icons">keyboard_arrow_up</i>
               </button>
-              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvote(post)">
+              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
                 <i class="material-icons">keyboard_arrow_down</i>
               </button>
             </div>
@@ -106,12 +108,12 @@
         </div>
       </div>
 
-      <div class="mdl-cell mdl-card mdl-shadow--4dp mdl-cell--4-col mdl-cell--top">
+      <form class="mdl-cell mdl-card add-post-form mdl-shadow--4dp mdl-cell--4-col mdl-cell--top" ng-submit="submitForm()">
         <div class="mdl-card__title mdl-card--border">
           <h3 class="mdl-card__title-text mdl-color-text--primary">Add new post</h3>
         </div>
 
-        <form class="add-post-form pull-right" ng-submit="submitForm()">
+        <div class="mdl-card__supporting-text">
           <div class="mdl-textfield mdl-js-textfield">
             <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
             <label class="mdl-textfield__label" for="postTitle">Post title</label>
@@ -126,11 +128,14 @@
             <textarea id="postContent" class="mdl-textfield__input" type="text" rows="5" ng-model="userPost.content"></textarea>
             <label class="mdl-textfield__label" for="postContent">Post content</label>
           </div>
+        </div>
+
+        <div class="mdl-card__actions">
           <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
             Add Post
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </script>
 
@@ -138,8 +143,8 @@
     <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent mdl-js-ripple-effect return-btn" href="#home">
       <i class="material-icons">arrow_back</i>
     </a>
-   
-    <div class="mdl-gird">     
+
+    <div class="mdl-gird">
       <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col post-card post-card-full">
         <div class="mdl-card__title" ng-style="{'background-image': 'url(' + post.image + ')'}">
           <h3 class="mdl-card__title-text">{{post.title}}</h3>
@@ -148,10 +153,10 @@
         <div class="mdl-card__supporting-text post-content">
           <div class="post-menu">
             {{post.rating}}
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvote(post)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
               <i class="material-icons">keyboard_arrow_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvote(post)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
               <i class="material-icons">keyboard_arrow_down</i>
             </button>
           </div>
@@ -160,18 +165,16 @@
             {{post.content}}
           </p>
         </div>
-        <div class="mdl-card__actions mdl-card--border add-comment-form">
-          <form class="clearfix" ng-submit="submitForm()">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <textarea id="commentBody" class="mdl-textfield__input" type="text" rows="3" ng-model="userComment.body"></textarea>
-              <label class="mdl-textfield__label" for="commentBody">Join the discussion</label>
-            </div>
+        <form class="mdl-card__actions mdl-card--border add-comment-form" ng-submit="submitForm()">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <textarea id="commentBody" class="mdl-textfield__input" type="text" rows="3" ng-model="userComment.body"></textarea>
+            <label class="mdl-textfield__label" for="commentBody">Join the discussion</label>
+          </div>
 
-            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-right" href="#posts/{{$index}}">
-              Add Comment
-            </button>
-          </form>
-        </div>
+          <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">
+            Add Comment
+          </button>
+        </form>
       </div>
 
       <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col comment-card" ng-repeat="comment in post.comments | orderBy:'-rating'">
@@ -182,10 +185,10 @@
 
           <div class="comment-card__header-menu">
             {{comment.rating}}
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvote(comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvoteComment(comment)">
               <i class="material-icons">keyboard_arrow_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvote(comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvoteComment(comment)">
               <i class="material-icons">keyboard_arrow_down</i>
             </button>
           </div>
