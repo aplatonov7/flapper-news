@@ -15,7 +15,7 @@ var dir = {
 
 var config = {
   jsIncludePaths: [
-    dir.bower + '/jquery/dist/jquery.js',
+    dir.bower + '/jquery/dist/jquery.js'
   ],
   sassIncludePaths: [
     dir.bower + '/bootstrap-sass-official/assets/stylesheets',

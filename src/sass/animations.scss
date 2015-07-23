@@ -1,0 +1,19 @@
+@keyframes appear-unfold {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+@keyframes appear-left {
+  from {transform: translateX(-200px); opacity: 0;}
+  to {transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes appear-top {
+  from {transform: translateX(-200px); opacity: 0;}
+  to {transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes appear-fade {
+  from {opacity: 0}
+  to {opacity: 1}
+}

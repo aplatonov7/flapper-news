@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Flapper News</title>
 
   <!-- MDL CDNs -->
@@ -27,17 +28,23 @@
     <header class="mdl-layout__header mdl-layout__header--transparent">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Flapper News</span>
-        
+
         <div class="mdl-layout-spacer"></div>
-        
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-            <i class="material-icons">search</i>
-          </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="sample6" />
-            <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+
+        <div class="mdl-layout__header-actions">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="sample6" />
+              <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+            </div>
           </div>
+
+          <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="modal = true">
+            <i class="material-icons">person</i>
+          </button>
         </div>
       </div>
     </header>
@@ -171,7 +178,7 @@
             <label class="mdl-textfield__label" for="commentBody">Join the discussion</label>
           </div>
 
-          <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">
+          <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
             Add Comment
           </button>
         </form>
@@ -200,6 +207,69 @@
       </div>
     </div>
   </script>
+
+  <div class="modal-window" ng-show="modal">
+    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--register" ng-hide="!mode">
+      <h3 class="mdl-color-text--accent">Login</h3>
+      
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="modal = false">
+        <i class="material-icons">clear</i>
+      </button>
+      
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="mode = !mode">
+        <i class="material-icons">add</i>
+      </button>
+
+      <form>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
+          <label class="mdl-textfield__label" for="postTitle">Username</label>
+        </div>
+        
+        <div class="mdl-textfield mdl-js-textfield">
+          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
+          <label class="mdl-textfield__label" for="postImage">Password</label>
+        </div>
+        
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
+          Login
+        </button>
+      </form>
+    </div>
+    
+    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--login" ng-hide="mode">
+      <h3 class="mdl-color-text--accent">Sign Up</h3>
+      
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="modal = false">
+        <i class="material-icons">clear</i>
+      </button>
+      
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="mode = !mode">
+        <i class="material-icons">person</i>
+      </button>
+
+      <form>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
+          <label class="mdl-textfield__label" for="postTitle">Username</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
+          <label class="mdl-textfield__label" for="postImage">Password</label>
+        </div>
+        
+        <div class="mdl-textfield mdl-js-textfield">
+          <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
+          <label class="mdl-textfield__label" for="postImage">Repeat password</label>
+        </div>
+
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
+          Sign
+        </button>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
