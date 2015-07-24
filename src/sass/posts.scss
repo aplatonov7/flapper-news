@@ -2,27 +2,22 @@
   position: fixed;
   top: 120px;
   left: 20px;
-
   animation: appear-left .5s 1;
-  animation-timing-function: cubic-bezier(.55,0,.1,1);
+  animation-timing-function: cubic-bezier(.55, 0, .1, 1);
 }
 
-.post-card  {
+.post-card {
   .mdl-card__title {
     background-position: center center;
     background-size: cover;
-
     color: #fff;
   }
-
   .mdl-card__supporting-text {
     width: 100%;
   }
-
   .mdl-card__title-text {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
   }
-
   .post-menu {
     float: right;
     display: flex;
@@ -31,48 +26,48 @@
     font-size: 16px;
     font-weight: 500;
     opacity: 0.8;
-
     button:first-child {
       margin-left: 5px;
     }
   }
-
   .mdl-card__actions {
     display: flex;
+    flex-wrap: wrap;
+    
+    p {
+      flex: 100% 1;
+    }
   }
-  
   &.post-card-snippet {
     width: 100%;
     margin-bottom: 15px;
-
     animation: appear-left 0.5s 1;
-    animation-timing-function: cubic-bezier(.55,0,.1,1);
+    animation-timing-function: cubic-bezier(.55, 0, .1, 1);
     animation-fill-mode: forwards;
-    
     opacity: 0;
-    
-    &:nth-child(1) { animation-delay: 0.1s }
-    &:nth-child(2) { animation-delay: 0.2s }
-    &:nth-child(3) { animation-delay: 0.3s }
-
+    &:nth-child(1) {
+      animation-delay: 0.1s
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s
+    }
+    &:nth-child(3) {
+      animation-delay: 0.3s
+    }
     .mdl-card__title {
       height: 200px;
     }
-
     p {
       padding: 15px 20px 0;
     }
-  }  
-
+  }
   &.post-card-full {
     animation: appear-unfold 0.5s 1;
-    animation-timing-function: cubic-bezier(.55,0,.1,1);
+    animation-timing-function: cubic-bezier(.55, 0, .1, 1);
     transform-origin: top left;
-
     .mdl-card__title {
       height: 500px;
     }
-
     .post-content p {
       font-size: 16px;
       margin: 50px 100px;
@@ -82,16 +77,12 @@
 
 .add-comment-form {
   min-height: 0;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-
   background-color: #eee;
   padding: 20px 16px 20px 35px;
-
   color: #222;
-
   .mdl-textfield {
     width: 80%;
   }
@@ -100,30 +91,46 @@
 .comment-card {
   min-height: 0;
   padding: 20px 16px 0;
-
   color: #222;
-
   .comment-card__header {
     display: flex;
     justify-content: space-between;
   }
-
   p {
     padding: 0 20px;
   }
-
   animation: appear-left 0.5s 1;
-  animation-timing-function: cubic-bezier(.55,0,.1,1);
+  animation-timing-function: cubic-bezier(.55,
+  0,
+  .1,
+  1);
   animation-fill-mode: forwards;
   opacity: 0;
-
-  &:nth-child(1) { animation-delay: 0.1s; } 
-  &:nth-child(2) { animation-delay: 0.2s; } 
-  &:nth-child(3) { animation-delay: 0.3s; } 
-  &:nth-child(4) { animation-delay: 0.4s; } 
-  &:nth-child(5) { animation-delay: 0.5s; } 
-  &:nth-child(6) { animation-delay: 0.6s; } 
-  &:nth-child(7) { animation-delay: 0.7s; } 
-  &:nth-child(8) { animation-delay: 0.8s; } 
-  &:nth-child(9) { animation-delay: 0.9s; } 
-} 
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  &:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  &:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  &:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  &:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+  &:nth-child(9) {
+    animation-delay: 0.9s;
+  }
+}

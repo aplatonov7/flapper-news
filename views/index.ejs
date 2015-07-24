@@ -88,16 +88,16 @@
 
             <div class="post-menu">
               {{post.rating}}
-              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
+              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.upvotePost(post)">
                 <i class="material-icons">keyboard_arrow_up</i>
               </button>
-              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
+              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.downvotePost(post)">
                 <i class="material-icons">keyboard_arrow_down</i>
               </button>
             </div>
 
             <p>
-              {{post.content}}
+              {{post.content | limitTo: 300}}...
             </p>
           </div>
 
@@ -129,24 +129,28 @@
         </div>
 
         <div class="mdl-card__supporting-text">
+          <p ng-show="!auth.isLoggedIn()">
+            You must <a ng-click="login.open()">Log in</a> to leave a comment!
+          </p>
+         
           <div class="mdl-textfield mdl-js-textfield">
-            <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" />
+            <input id="postTitle" class="mdl-textfield__input" type="text" ng-model="userPost.title" ng-disabled="!auth.isLoggedIn()" />
             <label class="mdl-textfield__label" for="postTitle">Post title</label>
           </div>
           <br />
           <div class="mdl-textfield mdl-js-textfield">
-            <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" />
+            <input id="postImage" class="mdl-textfield__input" type="text" ng-model="userPost.image" ng-disabled="!auth.isLoggedIn()" />
             <label class="mdl-textfield__label" for="postImage">Post image (imgur link)</label>
           </div>
           <br />
           <div class="mdl-textfield mdl-js-textfield">
-            <textarea id="postContent" class="mdl-textfield__input" type="text" rows="5" ng-model="userPost.content"></textarea>
+            <textarea id="postContent" class="mdl-textfield__input" type="text" rows="5" ng-model="userPost.content" ng-disabled="!auth.isLoggedIn()"></textarea>
             <label class="mdl-textfield__label" for="postContent">Post content</label>
           </div>
         </div>
 
         <div class="mdl-card__actions">
-          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right">
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right" ng-disabled="!auth.isLoggedIn()">
             Add Post
           </button>
         </div>
@@ -170,10 +174,10 @@
 
           <div class="post-menu">
             {{post.rating}}
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.upvotePost(post)">
               <i class="material-icons">keyboard_arrow_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvotePost(post)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.downvotePost(post)">
               <i class="material-icons">keyboard_arrow_down</i>
             </button>
           </div>
@@ -183,12 +187,16 @@
           </p>
         </div>
         <form class="mdl-card__actions mdl-card--border add-comment-form" ng-submit="submitForm()">
+          <p ng-show="!auth.isLoggedIn()">
+            You must <a ng-click="login.open()">Log in</a> to leave a comment!
+          </p>
+          
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <textarea id="commentBody" class="mdl-textfield__input" type="text" rows="3" ng-model="userComment.body"></textarea>
+            <textarea id="commentBody" class="mdl-textfield__input" type="text" rows="3" ng-model="userComment.body" ng-disabled="!auth.isLoggedIn()"></textarea>
             <label class="mdl-textfield__label" for="commentBody">Join the discussion</label>
           </div>
 
-          <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+          <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-disabled="!auth.isLoggedIn()">
             Add Comment
           </button>
         </form>
@@ -202,10 +210,10 @@
 
           <div class="comment-card__header-menu">
             {{comment.rating}}
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvoteComment(post, comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.upvoteComment(post, comment)">
               <i class="material-icons">keyboard_arrow_up</i>
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.downvoteComment(post, comment)">
+            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-disabled="!auth.isLoggedIn()" ng-click="posts.downvoteComment(post, comment)">
               <i class="material-icons">keyboard_arrow_down</i>
             </button>
           </div>

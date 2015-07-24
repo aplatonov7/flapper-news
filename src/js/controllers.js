@@ -2,9 +2,12 @@ app.controller('PostsListCtrl', [
   '$scope',
   'posts',
   'auth',
-  function ($scope, posts, auth) {
+  'login',
+  function ($scope, posts, auth, login) {
     $scope.userPost = {};
     $scope.posts = posts;
+    $scope.auth = auth;
+    $scope.login = login;
     $scope.currentUser = auth.currentUser();
 
     $scope.pageSize = 3;
@@ -52,13 +55,17 @@ app.controller('PostsCtrl', [
   '$scope',
   'posts',
   'post',
-  function ($scope, posts, post) {
+  'auth',
+  'login',
+  function ($scope, posts, post, auth, login) {
     angular.element(document).ready(function () {
       componentHandler.upgradeAllRegistered();
     });
 
     $scope.post = post;
     $scope.posts = posts;
+    $scope.auth = auth;
+    $scope.login = login;
 
     $scope.submitForm = function () {
       posts.addComment(
