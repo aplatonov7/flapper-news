@@ -1,4 +1,4 @@
-app.controller('MainCtrl', [
+app.controller('PostsListCtrl', [
   '$scope',
   'posts',
   'auth',
@@ -6,9 +6,6 @@ app.controller('MainCtrl', [
     $scope.userPost = {};
     $scope.posts = posts;
     $scope.currentUser = auth.currentUser();
-    
-    $scope.mode = true;
-    $scope.modal = false;
 
     $scope.pageSize = 3;
     $scope.currentPage = 0;
@@ -45,6 +42,8 @@ app.controller('MainCtrl', [
         };
 
         posts.addPost(post);
+
+        $scope.userPost = {};
       }
     }
 }]);
@@ -68,18 +67,29 @@ app.controller('PostsCtrl', [
     };
 }]);
 
+app.controller('NavCtrl', [
+  '$scope',
+  'auth',
+  'login',
+  function ($scope, auth, login) {
+    $scope.login = login;
+    $scope.auth = auth;
+}]);
+
 app.controller('AuthCtrl', [
   '$scope',
   '$state',
   'auth',
-  function ($scope, $state, auth) {
+  'login',
+  function ($scope, $state, auth, login) {
     $scope.user = {};
 
-    $scope.register = function () {      
+    $scope.register = function () {
       auth.register($scope.user).error(function (error) {
         $scope.error = error;
       }).then(function () {
-        $state.go('home');
+        login.close();
+        $scope.user = {};
       });
     };
 
@@ -87,7 +97,10 @@ app.controller('AuthCtrl', [
       auth.logIn($scope.user).error(function (error) {
         $scope.error = error;
       }).then(function () {
-        $state.go('home');
+        login.close();
+        $scope.user = {};
       });
     };
+
+    $scope.login = login;
   }]);

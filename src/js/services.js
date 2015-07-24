@@ -79,10 +79,10 @@ app.factory('posts', [
 
     o.upvotePost = function (post) {
       return $http.put('/posts/' + post._id + '/upvote', null, {
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken()
-        }
-      })
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
         .success(function (data) {
           post.rating += 1;
         });
@@ -90,10 +90,10 @@ app.factory('posts', [
 
     o.downvotePost = function (post) {
       return $http.put('/posts/' + post._id + '/downvote', null, {
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken()
-        }
-      })
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
         .success(function (data) {
           post.rating -= 1;
         });
@@ -101,10 +101,10 @@ app.factory('posts', [
 
     o.upvoteComment = function (post, comment) {
       return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken()
-        }
-      })
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
         .success(function (data) {
           comment.rating += 1;
         });
@@ -112,10 +112,10 @@ app.factory('posts', [
 
     o.downvoteComment = function (post, comment) {
       return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', null, {
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken()
-        }
-      })
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          }
+        })
         .success(function (data) {
           comment.rating -= 1;
         });
@@ -177,6 +177,26 @@ app.factory('auth', [
     };
 
     return auth;
+}]);
+
+app.factory('login', [
+  '$rootScope',
+  'auth',
+  function ($rootScope, auth) {
+    var login = {};
+    
+    login.open = function() {      
+      if (!auth.isLoggedIn()) {
+        login.mode = true;
+        login.modal = true;
+      }
+    };
+    
+    login.close = function() {
+      login.modal = false;
+    };
+
+    return login;
 }]);
 
 /* Service for imgur link generation */

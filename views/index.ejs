@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body ng-app="flapperNews" ng-controller="MainCtrl">
+<body ng-app="flapperNews">
   <div class="background"></div>
 
   <div class="layout-transparent mdl-layout mdl-js-layout">
-    <header class="mdl-layout__header mdl-layout__header--transparent">
+    <header class="mdl-layout__header mdl-layout__header--transparent" ng-controller="NavCtrl">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Flapper News</span>
 
@@ -42,10 +42,15 @@
             </div>
           </div>
 
-          <button class="mdl-button mdl-js-button mdl-button--icon" ng-click="modal = true">
-            <i class="material-icons">person</i>
+          <button class="mdl-button mdl-js-button mdl-button--icon appear-right" ng-show="!auth.isLoggedIn()" ng-click="login.open()">
+            <i class="material-icons">account_circle</i>
           </button>
-          {{currentUser}}
+          
+          <button class="mdl-button mdl-js-button mdl-button--icon appear-right" ng-show="auth.isLoggedIn()" ng-click="auth.logOut()">
+            <i class="material-icons">arrow_back</i>
+          </button>
+          
+          <span class="appear-right" ng-show="auth.isLoggedIn()">{{auth.currentUser()}}</span>
         </div>
       </div>
     </header>
@@ -79,6 +84,8 @@
           </div>
 
           <div class="mdl-card__supporting-text">
+            by <strong>{{post.author}}</strong>
+
             <div class="post-menu">
               {{post.rating}}
               <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
@@ -159,6 +166,8 @@
         </div>
 
         <div class="mdl-card__supporting-text post-content">
+          by <strong>{{post.author}}</strong>
+
           <div class="post-menu">
             {{post.rating}}
             <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" ng-click="posts.upvotePost(post)">
@@ -209,15 +218,15 @@
     </div>
   </script>
 
-  <div class="modal-window" ng-controller="AuthCtrl" ng-show="modal">
-    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--register" ng-hide="!mode">
+  <div class="modal-window" ng-controller="AuthCtrl" ng-show="login.modal">
+    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--register" ng-show="login.mode">
       <h3 class="mdl-color-text--accent">Login</h3>
-      
-      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="modal = false">
+
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="login.close()">
         <i class="material-icons">clear</i>
       </button>
-      
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="mode = !mode">
+
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="login.mode = !login.mode">
         <i class="material-icons">add</i>
       </button>
 
@@ -226,26 +235,26 @@
           <input id="userName" class="mdl-textfield__input" type="text" ng-model="user.username" />
           <label class="mdl-textfield__label" for="userName">Username</label>
         </div>
-        
+
         <div class="mdl-textfield mdl-js-textfield">
           <input id="userPassword" class="mdl-textfield__input" type="text" ng-model="user.password" />
           <label class="mdl-textfield__label" for="userPassword">Password</label>
         </div>
-        
+
         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect pull-right" ng-click="logIn()">
           Login
         </button>
       </form>
     </div>
-    
-    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--login" ng-hide="mode">
+
+    <div class="mdl-card mdl-shadow--16dp modal-form modal-form--login" ng-show="!login.mode">
       <h3 class="mdl-color-text--accent">Sign Up</h3>
-      
-      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="modal = false">
+
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent modal-form__close" ng-click="login.close()">
         <i class="material-icons">clear</i>
       </button>
-      
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="mode = !mode">
+
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--accent modal-form__switch-btn" ng-click="login.mode = !login.mode">
         <i class="material-icons">person</i>
       </button>
 

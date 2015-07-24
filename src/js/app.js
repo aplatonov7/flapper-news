@@ -10,7 +10,7 @@ app.config([
       .state('home', {
         url: '/home',
         templateUrl: '/home.html',
-        controller: 'MainCtrl',
+        controller: 'PostsListCtrl',
         resolve: {
           postPromise: ['posts', function (posts) {
             return posts.getAll();
@@ -22,7 +22,7 @@ app.config([
         templateUrl: '/posts.html',
         controller: 'PostsCtrl',
         resolve: {
-          post: ['$stateParams', 'posts', function($stateParams, posts) {
+          post: ['$stateParams', 'posts', function ($stateParams, posts) {
             return posts.getPostById($stateParams.id);
           }]
         }

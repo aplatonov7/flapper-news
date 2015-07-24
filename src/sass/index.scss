@@ -104,6 +104,10 @@ textarea {
   form {
     padding: 10px;    
     color: #222;
+    animation: appear-fade 0.2s 1;
+    animation-delay: 0.3s;
+    opacity: 0;
+    animation-fill-mode: forwards;
     
     .mdl-textfield {
       display: block;
@@ -121,6 +125,7 @@ textarea {
     position: absolute;
     right: -25px;
     top: 60px;  
+    z-index: 100;
   }
   
   .modal-form__close {
