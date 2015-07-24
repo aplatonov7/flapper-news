@@ -58,6 +58,7 @@ app.controller('PostsCtrl', [
     });
 
     $scope.post = post;
+    $scope.posts = posts;
 
     $scope.submitForm = function () {
       posts.addComment(
