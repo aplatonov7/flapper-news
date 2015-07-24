@@ -4,6 +4,7 @@
   left: 20px;
   animation: appear-left .5s 1;
   animation-timing-function: cubic-bezier(.55, 0, .1, 1);
+  z-index: 45;
 }
 
 .post-card {
